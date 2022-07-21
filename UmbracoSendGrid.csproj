@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.Core" Version="1.7.30" />
+    <PackageReference Include="MailKit" Version="3.3.0" />
+    <PackageReference Include="SendGrid" Version="9.28.0" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="10.0.1" />
+	<None Include=".\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>
