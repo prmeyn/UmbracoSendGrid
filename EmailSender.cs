@@ -8,19 +8,27 @@ namespace UmbracoSendGrid
 {
 	public static class EmailSender
 	{
+		private static bool IsLocal;
 		private static SMTPsettings _SMTPsettings;
 
-		public static void Initialize(SMTPsettings SMTPsettings)
+		public static void Initialize(bool isLocal, SMTPsettings SMTPsettings)
 		{
+			IsLocal = isLocal;
 			_SMTPsettings = SMTPsettings;
-
 		}
 
 		public static void SendEmail(Dictionary<string, string> toEmailsAndName, string subject, string textBody, string htmlBody)
 		{
 			if (_SMTPsettings != null)
 			{
-				BackgroundJob.Enqueue(() => CreateEmailMessageAndSend(toEmailsAndName, subject, textBody, htmlBody));
+				if (IsLocal)
+				{
+					CreateEmailMessageAndSend(toEmailsAndName, subject, textBody, htmlBody);
+				}
+				else
+				{
+					BackgroundJob.Enqueue(() => CreateEmailMessageAndSend(toEmailsAndName, subject, textBody, htmlBody));
+				}
 			}
 		}
 		public static void SendEmail(Dictionary<string, string> toEmailsAndName, KeyValuePair<string, Dictionary<string, string>> templateIdAndTemplate)
@@ -43,7 +51,15 @@ namespace UmbracoSendGrid
 						var ccs = toEmails.GetRange(1, toEmails.Count - 1);
 						sendGridMessage.AddCcs(ccs);
 					}
-					BackgroundJob.Enqueue(() => SendEmailMessageViaAPI(sendGridMessage));
+					if (IsLocal)
+					{
+						SendEmailMessageViaAPI(sendGridMessage);
+					}
+					else
+					{
+						BackgroundJob.Enqueue(() => SendEmailMessageViaAPI(sendGridMessage));
+					}
+					
 				}
 			}
 		}
