@@ -18,7 +18,7 @@ namespace UmbracoSendGrid.Setup
 
 		public void Initialize()
 		{
-			var smtpAppSettingsConfigPath = "Umbraco:Global:Smtp";
+			var smtpAppSettingsConfigPath = "Umbraco:CMS:Global:Smtp";
 			EmailSender.Initialize(_env?.IsEnvironment("Local") ?? true, new SMTPsettings()
 			{
 				FromName = _config.GetValue<string>($"{smtpAppSettingsConfigPath}:FromName"),
