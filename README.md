@@ -4,16 +4,18 @@ The `appsettings.json` file should SMTP settings for your SendGrid account
 ```json
 {
 	"Umbraco": {
-		"Global": {
-			"Smtp": {
-				"From": "someFrom@email.com",
-				"Host": "smtp.sendgrid.net",
-				"Port": 465,
-				"Username": "apikey",
-				"Password": "SG.xxxxYourPasswordxxxxx",
-				"SecureSocketOptions": "SslOnConnect"
+		"CMS":{
+			"Global": {
+				"Smtp": {
+					"From": "someFrom@email.com",
+					"Host": "smtp.sendgrid.net",
+					"Port": 465,
+					"Username": "apikey",
+					"Password": "SG.xxxxYourPasswordxxxxx",
+					"SecureSocketOptions": "SslOnConnect"
+				}
 			}
-		}
+		},
 	}
 }
 ```
