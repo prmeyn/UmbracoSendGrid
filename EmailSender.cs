@@ -17,6 +17,8 @@ namespace UmbracoSendGrid
 			_SMTPsettings = SMTPsettings;
 		}
 
+		public static string FromEmail => _SMTPsettings.From;
+
 		public static void SendEmail(Dictionary<string, string> toEmailsAndName, string subject, string textBody, string htmlBody)
 		{
 			if (_SMTPsettings != null)
