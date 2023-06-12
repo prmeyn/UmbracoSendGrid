@@ -1,8 +1,10 @@
 ﻿using Hangfire;
 using MailKit.Net.Smtp;
 using MimeKit;
+using Newtonsoft.Json;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Net.Http.Json;
 
 namespace UmbracoSendGrid
 {
@@ -61,7 +63,7 @@ namespace UmbracoSendGrid
 					{
 						BackgroundJob.Enqueue(() => SendEmailMessageViaAPI(sendGridMessage));
 					}
-					
+
 				}
 			}
 		}
@@ -74,6 +76,21 @@ namespace UmbracoSendGrid
 			{
 				throw new Exception(response.StatusCode.ToString());
 			}
+		}
+
+		public static SendGridDynamicTemplateVersion? DownloadEmailTemplateViaAPI(string templateId)
+		{
+			var client = new SendGridClient(_SMTPsettings.Password);
+			var response = client.RequestAsync(method: SendGridClient.Method.GET,
+				urlPath: $"templates/{templateId}").Result;
+
+			if (response.StatusCode == System.Net.HttpStatusCode.OK)
+			{
+				var jsonString = response.Body.ReadAsStringAsync().Result;
+				SendGridDynamicTemplate dynamicTemplate = JsonConvert.DeserializeObject<SendGridDynamicTemplate>(jsonString);
+				return dynamicTemplate.Versions.FirstOrDefault(t => t.Active == 1);
+			}
+			throw new Exception($"Failed to download SendGrid template. Status code: {response.StatusCode}");
 		}
 
 		public static void CreateEmailMessageAndSend(Dictionary<string, string> toEmailsAndName, string subject, string textBody, string htmlBody)
@@ -115,4 +132,5 @@ namespace UmbracoSendGrid
 			}
 		}
 	}
+
 }
