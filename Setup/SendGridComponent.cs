@@ -27,7 +27,7 @@ namespace UmbracoSendGrid.Setup
 				Port = _config.GetValue<int>($"{smtpAppSettingsConfigPath}:Port"),
 				Username = _config.GetValue<string>($"{smtpAppSettingsConfigPath}:Username"),
 				Password = _config.GetValue<string>($"{smtpAppSettingsConfigPath}:Password"),
-				SecureSocketOptions = (Umbraco.Cms.Core.Configuration.Models.SecureSocketOptions)Enum.Parse<SecureSocketOptions>(_config.GetValue<string>($"{smtpAppSettingsConfigPath}:SecureSocketOptions"))
+				SecureSocketOptions = (SecureSocketOptions)Enum.Parse(typeof(SecureSocketOptions), _config.GetValue<string>($"{smtpAppSettingsConfigPath}:SecureSocketOptions"))
 			});
 		}
 
