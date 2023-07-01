@@ -5,7 +5,7 @@ using Umbraco.Cms.Core.Composing;
 
 namespace UmbracoSendGrid.Setup
 {
-	public class SendGridComponent : IComponent
+	public sealed class SendGridComponent : IComponent
 	{
 		private readonly IHostEnvironment _env;
 		private readonly IConfiguration _config;

@@ -7,6 +7,7 @@ The `appsettings.json` file should SMTP settings for your SendGrid account
 		"CMS":{
 			"Global": {
 				"Smtp": {
+					"FromName": "Peter Brown",
 					"From": "someFrom@email.com",
 					"Host": "smtp.sendgrid.net",
 					"Port": 465,

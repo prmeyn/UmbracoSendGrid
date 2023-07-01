@@ -4,7 +4,6 @@ using MimeKit;
 using Newtonsoft.Json;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Net.Http.Json;
 
 namespace UmbracoSendGrid
 {

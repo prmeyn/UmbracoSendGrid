@@ -2,7 +2,7 @@
 
 namespace UmbracoSendGrid
 {
-	public class Message
+	public sealed class Message
 	{
 		public Message(Dictionary<string, string> to, string subject, string textBody, string htmlBody)
 		{

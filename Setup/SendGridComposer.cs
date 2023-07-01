@@ -3,7 +3,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 
 namespace UmbracoSendGrid.Setup
 {
-	public class SendGridComposer : IComposer
+	public sealed class SendGridComposer : IComposer
 	{
 		public void Compose(IUmbracoBuilder builder)
 		{
